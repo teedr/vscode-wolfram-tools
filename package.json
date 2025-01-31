@@ -15,6 +15,10 @@
             {
                 "command": "jump-to-function.findFunction",
                 "title": "Jump to Function Definition"
+            },
+            {
+                "command": "jump-to-function.findUnderCursor",
+                "title": "Jump to Function Definition Under Cursor"
             }
         ],
         "keybindings": [
@@ -22,6 +26,11 @@
                 "command": "jump-to-function.findFunction",
                 "key": "ctrl+shift+j",
                 "mac": "cmd+shift+j"
+            },
+            {
+                "command": "jump-to-function.findUnderCursor",
+                "key": "f10",
+                "when": "editorTextFocus"
             }
         ]
     },
