@@ -1,14 +1,13 @@
-# Mathematica Jump to Function - VSCode Extension
+# Mathematica Jump to Definition - VSCode Extension
 
 A VSCode extension that allows quick navigation to Wolfram Language function definitions within your project's source files.
 
 ## Features
 
-- Quick function search across Wolfram Language (`.m`) files in `sources` directories
-- Jump directly to function definitions
-- Keyboard shortcut: `Cmd+Shift+J` (Mac) or `Ctrl+Shift+J` (Windows/Linux)
-- Progress indicator during search
-- Highlights the found function definition
+- Function definition search across Wolfram Language (`.m`) files in `sources` directories
+- Keyboard shortcuts:
+    - `Cmd+Shift+J` (Mac) or `Ctrl+Shift+J` (Windows/Linux)
+    - `F10` while the cursor is on the symbol
 
 ## Local Installation
 
