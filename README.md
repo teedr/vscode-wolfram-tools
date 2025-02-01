@@ -15,7 +15,7 @@ A VSCode extension that allows quick navigation to Wolfram Language function def
 ### Method 1: Symlink (Development)
 
 1. Clone this repository
-2. Install dependencies: `npm install`
-3. Run the extension: `npm run compile`
-4. Symlink the extension: `ln -s /Users/teedrm/Documents/github/vscode-wolfram-tools ~/.vscode/extensions/jump-to-function`
-5. Restart VSCode
+2. Install dependencies: (`npm install`)
+3. Run the extension: (`npm run compile`)
+4. Symlink the extension: (`ln -s /Users/teedrm/Documents/github/vscode-wolfram-tools ~/.vscode/extensions/jump-to-function` or `ln -s /Users/teedrm/Documents/github/vscode-wolfram-tools ~/.cursor/extensions/jump-to-function`)
+5. Restart VSCode or Cursor
