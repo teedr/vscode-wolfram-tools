@@ -4,32 +4,64 @@ import * as path from 'path';
 async function searchForFunction(functionName: string) {
     // Extract the search logic into a reusable function
     const functionPattern = new RegExp(
-        `\\b${functionName}\\[.*\\]\\s*:=`
+        `^\\s*${functionName}\\[.*\\]\\s*:=`,
+        'm'
     );
 
     return await vscode.window.withProgress({
         location: vscode.ProgressLocation.Notification,
-        title: `Searching for function "${functionName}"...`,
+        title: `Searching for "${functionName}"...`,
         cancellable: true
     }, async (progress, token) => {
         try {
+            // Get all matching files
             const files = await vscode.workspace.findFiles(
                 '**/sources/**/*.m',
                 null,
                 100000
             );
 
-            console.log('Found files:', files.map(f => f.fsPath));
+            // Sort files by priority:
+            // 1. Active file
+            // 2. Files in same directory as active file
+            // 3. All other files
+            const activeEditor = vscode.window.activeTextEditor;
+            let sortedFiles = files;
+            
+            if (activeEditor) {
+                const activeFilePath = activeEditor.document.uri.fsPath;
+                const activeFileDir = path.dirname(activeFilePath);
+                const activeFileTopDir = activeFileDir.split('sources')[0] + 'sources';
+
+                sortedFiles = [
+                    // 1. Active file first
+                    ...files.filter(f => f.fsPath === activeFilePath),
+                    // 2. Files in same top-level sources directory
+                    ...files.filter(f => {
+                        const filePath = f.fsPath;
+                        return filePath !== activeFilePath && 
+                               filePath.startsWith(activeFileTopDir);
+                    }),
+                    // 3. All remaining files
+                    ...files.filter(f => {
+                        const filePath = f.fsPath;
+                        return filePath !== activeFilePath && 
+                               !filePath.startsWith(activeFileTopDir);
+                    })
+                ];
+            }
+
+            console.log('Searching files in order:', sortedFiles.map(f => f.fsPath));
 
             let filesSearched = 0;
-            for (const file of files) {
+            for (const file of sortedFiles) {
                 if (token.isCancellationRequested) {
                     return;
                 }
 
                 progress.report({
-                    message: `Searching file ${filesSearched + 1} of ${files.length}`,
-                    increment: (1 / files.length) * 100
+                    message: `Searching file ${filesSearched + 1} of ${sortedFiles.length}`,
+                    increment: (1 / sortedFiles.length) * 100
                 });
 
                 const document = await vscode.workspace.openTextDocument(file);
@@ -37,7 +69,10 @@ async function searchForFunction(functionName: string) {
                 const match = functionPattern.exec(text);
 
                 if (match) {
-                    const position = document.positionAt(match.index);
+                    // Find the start of actual content by skipping any newline and whitespace
+                    const matchText = match[0];
+                    const offset = matchText.search(/[^\s]/);
+                    const position = document.positionAt(match.index + offset);
                     
                     await vscode.window.showTextDocument(document, {
                         selection: new vscode.Selection(position, position),
