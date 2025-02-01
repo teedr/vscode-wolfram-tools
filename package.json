@@ -14,25 +14,38 @@
         "commands": [
             {
                 "command": "jump-to-function.findFunction",
-                "title": "Jump to Function Definition"
+                "title": "Jump to Function Definition",
+                "when": "editorLangId == 'wolfram'"
             },
             {
                 "command": "jump-to-function.findUnderCursor",
-                "title": "Jump to Function Definition Under Cursor"
+                "title": "Jump to Function Definition Under Cursor",
+                "when": "editorLangId == 'wolfram'"
             }
         ],
         "keybindings": [
             {
                 "command": "jump-to-function.findFunction",
                 "key": "ctrl+shift+j",
-                "mac": "cmd+shift+j"
+                "mac": "cmd+shift+j",
+                "when": "editorLangId == 'wolfram'"
             },
             {
                 "command": "jump-to-function.findUnderCursor",
                 "key": "f10",
-                "when": "editorTextFocus"
+                "when": "editorTextFocus && editorLangId == 'wolfram'"
             }
-        ]
+        ],
+        "configuration": {
+            "title": "Jump to Function",
+            "properties": {
+                "jumpToFunction.searchPattern": {
+                    "type": "string",
+                    "default": "**/sources/**/*.m",
+                    "description": "The glob pattern to use when searching for Wolfram Language files"
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",

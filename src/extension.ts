@@ -8,15 +8,19 @@ async function searchForFunction(functionName: string) {
         'm'
     );
 
+    // Get the search pattern from settings
+    const config = vscode.workspace.getConfiguration('jumpToFunction');
+    const searchPattern = config.get<string>('searchPattern') || '**/sources/**/*.m';
+
     return await vscode.window.withProgress({
         location: vscode.ProgressLocation.Notification,
-        title: `Searching for "${functionName}"...`,
+        title: `Searching for "${functionName}"`,
         cancellable: true
     }, async (progress, token) => {
         try {
             // Get all matching files
             const files = await vscode.workspace.findFiles(
-                '**/sources/**/*.m',
+                searchPattern,
                 null,
                 100000
             );
