@@ -11,7 +11,7 @@ A VSCode extension that allows quick navigation to Wolfram Language function def
 
 ## Local Installation
 
-### Method 1: Symlink (Development)
+### Using Symlink (Development)
 
 1. Clone this repository
 2. Install dependencies: (`npm install`)
