@@ -10,7 +10,7 @@ async function searchForFunction(functionName: string) {
 
     // Get the search pattern from settings
     const config = vscode.workspace.getConfiguration('jumpToFunction');
-    const searchPattern = config.get<string>('searchPattern') || '**/sources/**/*.m';
+    const searchPattern = config.get<string>('searchPattern') || '**/sources/**/*.{m,wls}';
 
     return await vscode.window.withProgress({
         location: vscode.ProgressLocation.Notification,
@@ -21,7 +21,7 @@ async function searchForFunction(functionName: string) {
             // Get all matching files
             const files = await vscode.workspace.findFiles(
                 searchPattern,
-                null,
+                '{.history,.vscode,.idea}/**',
                 100000
             );
 
