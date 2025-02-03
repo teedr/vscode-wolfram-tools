@@ -66,5 +66,8 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/username/repo-name"
+    },
+    "__metadata": {
+        "size": 87193514
     }
 }
