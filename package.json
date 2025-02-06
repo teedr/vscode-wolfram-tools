@@ -41,8 +41,13 @@
             "properties": {
                 "jumpToFunction.searchPattern": {
                     "type": "string",
-                    "default": "**/sources/**/*.m",
+                    "default": "**/sources/**/*.{m,wls}",
                     "description": "The glob pattern to use when searching for Wolfram Language files"
+                },
+                "jumpToFunction.excludePattern": {
+                    "type": "string",
+                    "default": "{.history,.vscode,.idea,**/ProcedureDefinitions}/**",
+                    "description": "The glob pattern for directories/files to exclude from search"
                 }
             }
         }

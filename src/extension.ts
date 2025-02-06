@@ -8,9 +8,10 @@ async function searchForFunction(functionName: string) {
         'm'
     );
 
-    // Get the search pattern from settings
+    // Get both search and exclude patterns from settings
     const config = vscode.workspace.getConfiguration('jumpToFunction');
     const searchPattern = config.get<string>('searchPattern') || '**/sources/**/*.{m,wls}';
+    const excludePattern = config.get<string>('excludePattern') || '{.history,.vscode,.idea,**/ProcedureDefinitions}/**';
 
     return await vscode.window.withProgress({
         location: vscode.ProgressLocation.Notification,
@@ -21,7 +22,7 @@ async function searchForFunction(functionName: string) {
             // Get all matching files
             const files = await vscode.workspace.findFiles(
                 searchPattern,
-                '{.history,.vscode,.idea}/**',
+                excludePattern,
                 100000
             );
 
