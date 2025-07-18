@@ -171,7 +171,7 @@ async function searchForFunction(functionName: string) {
                 const foundLine = findFunctionDefinitionInText(functionName, text);
 
                 if (foundLine !== null) {
-                    const position = document.positionAt(foundLine);
+                    const position = new vscode.Position(foundLine, 0);
                     
                     await vscode.window.showTextDocument(document, {
                         selection: new vscode.Selection(position, position),
@@ -212,7 +212,7 @@ async function searchForFunction(functionName: string) {
                 const foundLine = findFunctionDefinitionInText(functionName, text);
 
                 if (foundLine !== null) {
-                    const position = document.positionAt(foundLine);
+                    const position = new vscode.Position(foundLine, 0);
                     
                     await vscode.window.showTextDocument(document, {
                         selection: new vscode.Selection(position, position),
@@ -264,7 +264,7 @@ async function searchForFunction(functionName: string) {
                     const foundLine = findFunctionDefinitionInText(functionName, text);
 
                     if (foundLine !== null) {
-                        const position = document.positionAt(foundLine);
+                        const position = new vscode.Position(foundLine, 0);
                         
                         await vscode.window.showTextDocument(document, {
                             selection: new vscode.Selection(position, position),
@@ -339,7 +339,7 @@ async function searchForFunction(functionName: string) {
                 const foundLine = findFunctionDefinitionInText(functionName, text);
 
                 if (foundLine !== null) {
-                    const position = document.positionAt(foundLine);
+                    const position = new vscode.Position(foundLine, 0);
                     
                     await vscode.window.showTextDocument(document, {
                         selection: new vscode.Selection(position, position),
