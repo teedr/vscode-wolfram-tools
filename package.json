@@ -21,6 +21,11 @@
                 "command": "jump-to-function.findUnderCursor",
                 "title": "Jump to Function Definition Under Cursor",
                 "when": "editorLangId == 'wolfram'"
+            },
+            {
+                "command": "jump-to-function.clearCache",
+                "title": "Clear Function Definition Cache",
+                "when": "editorLangId == 'wolfram'"
             }
         ],
         "keybindings": [
@@ -34,6 +39,12 @@
                 "command": "jump-to-function.findUnderCursor",
                 "key": "f10",
                 "when": "editorTextFocus && editorLangId == 'wolfram'"
+            },
+            {
+                "command": "jump-to-function.clearCache",
+                "key": "ctrl+shift+c",
+                "mac": "cmd+shift+c",
+                "when": "editorLangId == 'wolfram'"
             }
         ],
         "configuration": {
@@ -48,6 +59,16 @@
                     "type": "string",
                     "default": "{.history,.vscode,.idea,**/ProcedureDefinitions}/**",
                     "description": "The glob pattern for directories/files to exclude from search"
+                },
+                "jumpToFunction.enableCache": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable function definition caching for faster searches"
+                },
+                "jumpToFunction.cacheInvalidationDays": {
+                    "type": "number",
+                    "default": 30,
+                    "description": "Number of days after which cached function definitions are considered stale"
                 }
             }
         }
